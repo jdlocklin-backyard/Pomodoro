@@ -90,6 +90,9 @@ resetBtn.addEventListener('click', () => {
 // Timer functions
 function startCountdown() {
   // Start local countdown for display
+  // Note: Uses setInterval for simplicity. For a Pomodoro timer, minor drift
+  // over 10-25 minutes is acceptable. The background alarm ensures accuracy
+  // for notifications.
   timerState.interval = setInterval(() => {
     timerState.timeRemaining--;
     updateDisplay();
@@ -234,14 +237,6 @@ function updateStatus() {
     }
   }
 }
-
-// Listen for messages from background script
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === 'timerTick') {
-    timerState.timeRemaining = message.timeRemaining;
-    updateDisplay();
-  }
-});
 
 // Initialize display
 updateDisplay();
