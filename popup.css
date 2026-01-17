@@ -1,0 +1,497 @@
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-width: 380px;
+  max-width: 400px;
+  color: #333;
+}
+
+.container {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Tab Navigation */
+.tab-nav {
+  display: flex;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab-btn:hover {
+  color: #333;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.tab-btn.active {
+  color: #667eea;
+  background: #ffffff;
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Phase Display */
+.phase-display {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.phase-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.phase-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.phase-icon.focus-icon {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+  color: white;
+}
+
+.phase-icon.retrieve-icon {
+  background: linear-gradient(135deg, #ffd93d, #f9c846);
+  color: #333;
+}
+
+.phase-icon.rest-icon {
+  background: linear-gradient(135deg, #6bcb77, #4caf50);
+  color: white;
+}
+
+#phase-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.timer-display {
+  font-size: 56px;
+  font-weight: 700;
+  color: #333;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 2px;
+}
+
+/* Progress Bar */
+.progress-container {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  margin: 15px 0 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  transition: width 0.5s ease, background 0.3s ease;
+  background: linear-gradient(90deg, #ff6b6b, #ee5a5a);
+}
+
+.progress-bar.retrieve {
+  background: linear-gradient(90deg, #ffd93d, #f9c846);
+}
+
+.progress-bar.rest {
+  background: linear-gradient(90deg, #6bcb77, #4caf50);
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.control-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.control-btn.primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.control-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.control-btn.secondary {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.control-btn.secondary:hover:not(:disabled) {
+  background: #e0e0e0;
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Phase Selection */
+.phase-selection {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.phase-selection h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.phase-group {
+  margin-bottom: 15px;
+}
+
+.phase-group:last-child {
+  margin-bottom: 0;
+}
+
+.phase-group-title {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.phase-group-title::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.focus-title::before {
+  background: #ff6b6b;
+}
+
+.retrieve-title::before {
+  background: #ffd93d;
+}
+
+.rest-title::before {
+  background: #6bcb77;
+}
+
+.phase-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.phase-btn {
+  padding: 8px 16px;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.phase-btn.focus-btn {
+  background: #fff0f0;
+  color: #d63031;
+  border-color: #ffcccc;
+}
+
+.phase-btn.focus-btn:hover,
+.phase-btn.focus-btn.active {
+  background: #ff6b6b;
+  color: white;
+  border-color: #ff6b6b;
+}
+
+.phase-btn.retrieve-btn {
+  background: #fffbeb;
+  color: #b8860b;
+  border-color: #ffe066;
+}
+
+.phase-btn.retrieve-btn:hover,
+.phase-btn.retrieve-btn.active {
+  background: #ffd93d;
+  color: #333;
+  border-color: #ffd93d;
+}
+
+.phase-btn.rest-btn {
+  background: #f0fff4;
+  color: #2e7d32;
+  border-color: #a5d6a7;
+}
+
+.phase-btn.rest-btn:hover,
+.phase-btn.rest-btn.active {
+  background: #6bcb77;
+  color: white;
+  border-color: #6bcb77;
+}
+
+/* Session Counter */
+.session-counter {
+  text-align: center;
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+#session-count {
+  font-weight: 700;
+  color: #667eea;
+  font-size: 16px;
+}
+
+/* Information Tab Styles */
+.info-section {
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+.info-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid;
+}
+
+.info-card.focus-card {
+  border-left-color: #ff6b6b;
+}
+
+.info-card.retrieve-card {
+  border-left-color: #ffd93d;
+}
+
+.info-card.rest-card {
+  border-left-color: #6bcb77;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.info-header .info-icon {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-header .info-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.info-header .focus-icon {
+  background: #fff0f0;
+  color: #ff6b6b;
+}
+
+.info-header .retrieve-icon {
+  background: #fffbeb;
+  color: #f9c846;
+}
+
+.info-header .rest-icon {
+  background: #f0fff4;
+  color: #6bcb77;
+}
+
+.info-header h3 {
+  font-size: 15px;
+  font-weight: 600;
+  flex-grow: 1;
+}
+
+.time-badge {
+  background: #f0f0f0;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+}
+
+.info-card p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.info-card ul {
+  margin-left: 18px;
+  margin-bottom: 10px;
+}
+
+.info-card li {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+.tip-box {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #555;
+  border: 1px solid #e9ecef;
+}
+
+.tip-box strong {
+  color: #667eea;
+}
+
+.science-section {
+  background: linear-gradient(135deg, #667eea15, #764ba215);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 10px;
+}
+
+.science-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.science-section p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.science-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* Scrollbar Styling */
+.info-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.info-section::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.info-section::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.info-section::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Timer Running Animation */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.timer-running .timer-display {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 380px) {
+  .timer-display {
+    font-size: 48px;
+  }
+
+  .phase-options {
+    justify-content: center;
+  }
+}

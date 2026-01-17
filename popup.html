@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Focus Timer</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Tab Navigation -->
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="timer">Timer</button>
+      <button class="tab-btn" data-tab="info">Learn More</button>
+    </div>
+
+    <!-- Timer Tab -->
+    <div id="timer-tab" class="tab-content active">
+      <!-- Current Phase Display -->
+      <div class="phase-display">
+        <div id="phase-icon" class="phase-icon focus-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+        </div>
+        <h2 id="phase-name">Focus Time</h2>
+        <div id="timer-display" class="timer-display">25:00</div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+
+      <!-- Timer Controls -->
+      <div class="controls">
+        <button id="start-btn" class="control-btn primary">Start</button>
+        <button id="pause-btn" class="control-btn secondary" disabled>Pause</button>
+        <button id="reset-btn" class="control-btn secondary">Reset</button>
+      </div>
+
+      <!-- Phase Selection -->
+      <div class="phase-selection">
+        <h3>Select Phase</h3>
+
+        <div class="phase-group">
+          <h4 class="phase-group-title focus-title">Focus Time</h4>
+          <div class="phase-options">
+            <button class="phase-btn focus-btn" data-phase="focus" data-time="10">10 min</button>
+            <button class="phase-btn focus-btn" data-phase="focus" data-time="15">15 min</button>
+            <button class="phase-btn focus-btn active" data-phase="focus" data-time="25">25 min</button>
+          </div>
+        </div>
+
+        <div class="phase-group">
+          <h4 class="phase-group-title retrieve-title">Retrieve (Diffuse Mode)</h4>
+          <div class="phase-options">
+            <button class="phase-btn retrieve-btn" data-phase="retrieve" data-time="3">3 min</button>
+            <button class="phase-btn retrieve-btn" data-phase="retrieve" data-time="4">4 min</button>
+            <button class="phase-btn retrieve-btn" data-phase="retrieve" data-time="5">5 min</button>
+          </div>
+        </div>
+
+        <div class="phase-group">
+          <h4 class="phase-group-title rest-title">Restful Wakefulness</h4>
+          <div class="phase-options">
+            <button class="phase-btn rest-btn" data-phase="rest" data-time="3">3 min</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Session Counter -->
+      <div class="session-counter">
+        <span>Sessions completed: </span>
+        <span id="session-count">0</span>
+      </div>
+    </div>
+
+    <!-- Information Tab -->
+    <div id="info-tab" class="tab-content">
+      <div class="info-section">
+        <div class="info-card focus-card">
+          <div class="info-header">
+            <div class="info-icon focus-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+              </svg>
+            </div>
+            <h3>Focus Mode</h3>
+            <span class="time-badge">10-25 min</span>
+          </div>
+          <p>During focus mode, your brain operates in <strong>focused attention</strong>, creating tight neural connections. This is when you actively concentrate on learning new material or solving problems.</p>
+          <ul>
+            <li>Eliminates distractions</li>
+            <li>Builds neural pathways</li>
+            <li>Deep concentration state</li>
+          </ul>
+        </div>
+
+        <div class="info-card retrieve-card">
+          <div class="info-header">
+            <div class="info-icon retrieve-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+              </svg>
+            </div>
+            <h3>Retrieve (Diffuse Mode)</h3>
+            <span class="time-badge">3-5 min</span>
+          </div>
+          <p>The <strong>diffuse mode</strong> allows your brain to make broad connections. During this phase, look away from your work and let your mind wander. Try to recall what you just learned without looking at your notes.</p>
+          <ul>
+            <li>Strengthens memory through active recall</li>
+            <li>Allows subconscious processing</li>
+            <li>Makes unexpected connections</li>
+            <li>Consolidates learning</li>
+          </ul>
+          <div class="tip-box">
+            <strong>Tip:</strong> During this phase, close your eyes and try to mentally review what you just studied. This active retrieval dramatically improves retention.
+          </div>
+        </div>
+
+        <div class="info-card rest-card">
+          <div class="info-header">
+            <div class="info-icon rest-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.5 7.5c0-.28-.22-.5-.5-.5s-.5.22-.5.5v4.5l3.5 2.1c.24.14.55.07.68-.17.14-.24.07-.55-.17-.68L12.5 11.5V7.5zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+              </svg>
+            </div>
+            <h3>Restful Wakefulness</h3>
+            <span class="time-badge">3 min</span>
+          </div>
+          <p><strong>Restful wakefulness</strong> is a brief period of complete mental rest while staying awake. This allows your brain to process and consolidate information without the full commitment of sleep.</p>
+          <ul>
+            <li>Reduces mental fatigue</li>
+            <li>Enhances memory consolidation</li>
+            <li>Prepares brain for next focus session</li>
+            <li>Prevents burnout</li>
+          </ul>
+          <div class="tip-box">
+            <strong>Tip:</strong> Find a comfortable position, close your eyes, and let your thoughts drift naturally. Don't try to think about anything specific - just rest your mind.
+          </div>
+        </div>
+
+        <div class="science-section">
+          <h3>The Science Behind It</h3>
+          <p>Research by Dr. Barbara Oakley and others has shown that alternating between focused and diffuse thinking modes is essential for effective learning. The Pomodoro Technique, combined with intentional retrieval practice and rest, maximizes your brain's ability to learn and retain information.</p>
+          <p>Studies show that <strong>spaced repetition</strong> and <strong>active recall</strong> during the diffuse mode phase can improve retention by up to 50% compared to passive review alone.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
