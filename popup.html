@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Timer</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🍅 Pomodoro Timer</h1>
+    
+    <!-- Tab Navigation -->
+    <div class="tabs">
+      <button class="tab-button active" data-tab="timer">Timer</button>
+      <button class="tab-button" data-tab="info">Information</button>
+    </div>
+
+    <!-- Timer Tab -->
+    <div id="timer-tab" class="tab-content active">
+      <div class="timer-display">
+        <div id="time-display">25:00</div>
+        <div id="timer-label">Ready to focus</div>
+      </div>
+
+      <div class="timer-selection">
+        <h3>Select Focus Duration</h3>
+        <div class="button-group">
+          <button class="time-btn" data-minutes="10">10 min</button>
+          <button class="time-btn" data-minutes="15">15 min</button>
+          <button class="time-btn active" data-minutes="25">25 min</button>
+        </div>
+      </div>
+
+      <div class="timer-selection">
+        <h3>Select Break Type</h3>
+        <div class="button-group">
+          <button class="break-btn" data-minutes="3" data-type="restful">
+            Restful Wakefulness<br><small>(3 min)</small>
+          </button>
+          <button class="break-btn active" data-minutes="5" data-type="diffuse">
+            Diffuse Mode<br><small>(3-5 min)</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="start-btn" class="control-btn start">Start</button>
+        <button id="pause-btn" class="control-btn pause" disabled>Pause</button>
+        <button id="reset-btn" class="control-btn reset">Reset</button>
+      </div>
+
+      <div class="status">
+        <p id="status-text">Select a duration and click Start</p>
+      </div>
+    </div>
+
+    <!-- Information Tab -->
+    <div id="info-tab" class="tab-content">
+      <div class="info-content">
+        <h2>🧠 Understanding the Pomodoro Technique</h2>
+        
+        <section class="info-section">
+          <h3>Focus Periods</h3>
+          <p>
+            The Pomodoro Technique uses focused work intervals (10, 15, or 25 minutes) 
+            to maximize concentration and productivity. During these periods:
+          </p>
+          <ul>
+            <li>Eliminate all distractions</li>
+            <li>Focus on a single task</li>
+            <li>Work with full attention until the timer rings</li>
+          </ul>
+        </section>
+
+        <section class="info-section">
+          <h3>🌊 Diffuse Mode (3-5 minutes)</h3>
+          <p>
+            <strong>Why it matters:</strong> Diffuse mode is crucial for learning and 
+            problem-solving. When you step away from focused work:
+          </p>
+          <ul>
+            <li><strong>Memory Consolidation:</strong> Your brain processes and stores 
+            information from the focus session</li>
+            <li><strong>Creative Connections:</strong> Neural pathways make unexpected 
+            connections, leading to insights and solutions</li>
+            <li><strong>Mental Recovery:</strong> Prevents cognitive fatigue and burnout</li>
+            <li><strong>Enhanced Learning:</strong> Studies show breaks improve retention 
+            and understanding</li>
+          </ul>
+          <p>
+            <strong>During diffuse mode:</strong> Take a walk, look out the window, 
+            do light stretching, or engage in a completely different activity. Avoid 
+            checking email or social media.
+          </p>
+        </section>
+
+        <section class="info-section">
+          <h3>🧘 Restful Wakefulness (3 minutes)</h3>
+          <p>
+            <strong>Why it matters:</strong> Restful wakefulness is a state of quiet 
+            awareness that provides unique cognitive benefits:
+          </p>
+          <ul>
+            <li><strong>Memory Enhancement:</strong> Research shows that quiet rest 
+            periods significantly improve memory consolidation</li>
+            <li><strong>Mental Clarity:</strong> Allows your brain to process information 
+            without new input</li>
+            <li><strong>Stress Reduction:</strong> Brief periods of calm reduce cortisol 
+            and mental strain</li>
+            <li><strong>Default Mode Network:</strong> Activates brain regions important 
+            for self-reflection and integration</li>
+          </ul>
+          <p>
+            <strong>During restful wakefulness:</strong> Sit quietly with eyes open or 
+            closed, breathe naturally, and let your mind wander without forcing thoughts 
+            or engaging with external stimuli.
+          </p>
+        </section>
+
+        <section class="info-section">
+          <h3>💡 Best Practices</h3>
+          <ul>
+            <li>Start with shorter intervals (10-15 min) if you're new to the technique</li>
+            <li>Honor your break times - they're essential, not optional</li>
+            <li>Alternate between diffuse mode and restful wakefulness breaks</li>
+            <li>After 4 focus sessions, take a longer break (15-30 minutes)</li>
+            <li>Track what you accomplish to build momentum</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
