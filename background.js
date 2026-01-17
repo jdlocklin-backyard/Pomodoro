@@ -111,8 +111,8 @@ function showNotification() {
 // Handle notification clicks
 chrome.notifications.onClicked.addListener((notificationId) => {
   if (notificationId === 'pomodoroNotification') {
-    // Open the popup
-    chrome.action.openPopup();
+    // Clear the notification when clicked
+    chrome.notifications.clear(notificationId);
   }
 });
 

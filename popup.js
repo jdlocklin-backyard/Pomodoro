@@ -88,6 +88,18 @@ resetBtn.addEventListener('click', () => {
 });
 
 // Timer functions
+function startCountdown() {
+  // Start local countdown for display
+  timerState.interval = setInterval(() => {
+    timerState.timeRemaining--;
+    updateDisplay();
+    
+    if (timerState.timeRemaining <= 0) {
+      timerComplete();
+    }
+  }, 1000);
+}
+
 function startTimer() {
   timerState.isRunning = true;
   timerState.isPaused = false;
@@ -112,15 +124,7 @@ function startTimer() {
     breakType: timerState.breakType
   });
   
-  // Start local countdown for display
-  timerState.interval = setInterval(() => {
-    timerState.timeRemaining--;
-    updateDisplay();
-    
-    if (timerState.timeRemaining <= 0) {
-      timerComplete();
-    }
-  }, 1000);
+  startCountdown();
 }
 
 function pauseTimer() {
@@ -149,14 +153,7 @@ function resumeTimer() {
   
   chrome.runtime.sendMessage({ action: 'resumeTimer' });
   
-  timerState.interval = setInterval(() => {
-    timerState.timeRemaining--;
-    updateDisplay();
-    
-    if (timerState.timeRemaining <= 0) {
-      timerComplete();
-    }
-  }, 1000);
+  startCountdown();
 }
 
 function resetTimer() {
