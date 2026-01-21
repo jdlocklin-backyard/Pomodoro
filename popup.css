@@ -8,8 +8,8 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-width: 380px;
-  max-width: 400px;
+  min-width: 400px;
+  max-width: 420px;
   color: #333;
 }
 
@@ -29,10 +29,10 @@ body {
 
 .tab-btn {
   flex: 1;
-  padding: 14px 20px;
+  padding: 12px 16px;
   border: none;
   background: transparent;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: #666;
   cursor: pointer;
@@ -63,7 +63,7 @@ body {
 /* Tab Content */
 .tab-content {
   display: none;
-  padding: 20px;
+  padding: 16px;
   animation: fadeIn 0.3s ease;
 }
 
@@ -79,13 +79,13 @@ body {
 /* Phase Display */
 .phase-display {
   text-align: center;
-  padding: 20px 0;
+  padding: 15px 0;
 }
 
 .phase-icon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 15px;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 12px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -94,8 +94,8 @@ body {
 }
 
 .phase-icon svg {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
 }
 
 .phase-icon.focus-icon {
@@ -114,18 +114,101 @@ body {
 }
 
 #phase-name {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .timer-display {
-  font-size: 56px;
+  font-size: 52px;
   font-weight: 700;
   color: #333;
   font-variant-numeric: tabular-nums;
   letter-spacing: 2px;
+}
+
+/* Phase Cycle Indicator */
+.phase-cycle-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0 15px;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.cycle-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.cycle-step.active {
+  opacity: 1;
+}
+
+.cycle-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.focus-step .cycle-dot {
+  background: #ff6b6b;
+}
+
+.retrieve-step .cycle-dot {
+  background: #ffd93d;
+}
+
+.rest-step .cycle-dot {
+  background: #6bcb77;
+}
+
+.cycle-step.active .cycle-dot {
+  transform: scale(1.3);
+  box-shadow: 0 0 8px currentColor;
+}
+
+.focus-step.active .cycle-dot {
+  box-shadow: 0 0 8px #ff6b6b;
+}
+
+.retrieve-step.active .cycle-dot {
+  box-shadow: 0 0 8px #ffd93d;
+}
+
+.rest-step.active .cycle-dot {
+  box-shadow: 0 0 8px #6bcb77;
+}
+
+.cycle-step span {
+  font-size: 10px;
+  font-weight: 600;
+  color: #666;
+}
+
+.cycle-arrow {
+  color: #ccc;
+  font-size: 14px;
+}
+
+.cycle-repeat {
+  display: flex;
+  align-items: center;
+  color: #999;
+}
+
+.cycle-repeat svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* Progress Bar */
@@ -133,7 +216,7 @@ body {
   height: 8px;
   background: #e0e0e0;
   border-radius: 4px;
-  margin: 15px 0 20px;
+  margin: 0 0 15px;
   overflow: hidden;
 }
 
@@ -158,11 +241,11 @@ body {
   display: flex;
   gap: 10px;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 
 .control-btn {
-  padding: 12px 24px;
+  padding: 10px 22px;
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -196,25 +279,88 @@ body {
   cursor: not-allowed;
 }
 
+/* Auto-Start Toggle */
+.auto-start-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding: 8px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(20px);
+}
+
+.auto-start-label {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
 /* Phase Selection */
 .phase-selection {
   background: #f9f9f9;
   border-radius: 12px;
-  padding: 15px;
-  margin-bottom: 15px;
+  padding: 12px;
+  margin-bottom: 12px;
 }
 
 .phase-selection h3 {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   color: #666;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .phase-group {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .phase-group:last-child {
@@ -222,9 +368,9 @@ body {
 }
 
 .phase-group-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -251,15 +397,15 @@ body {
 
 .phase-options {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .phase-btn {
-  padding: 8px 16px;
+  padding: 6px 14px;
   border: 2px solid transparent;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -304,23 +450,289 @@ body {
   border-color: #6bcb77;
 }
 
-/* Session Counter */
-.session-counter {
-  text-align: center;
+/* Today's Stats */
+.today-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
   padding: 12px;
-  background: #f5f5f5;
-  border-radius: 8px;
-  font-size: 14px;
-  color: #666;
+  background: linear-gradient(135deg, #667eea15, #764ba215);
+  border-radius: 10px;
 }
 
-#session-count {
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 24px;
   font-weight: 700;
   color: #667eea;
-  font-size: 16px;
 }
 
+.stat-label {
+  font-size: 11px;
+  color: #666;
+  font-weight: 500;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 30px;
+  background: #ddd;
+}
+
+/* ==================== */
+/* Heat Map / Stats Tab */
+/* ==================== */
+
+.stats-section {
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.stats-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Summary Stats */
+.summary-stats {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.summary-card {
+  flex: 1;
+  background: linear-gradient(135deg, #667eea10, #764ba210);
+  border-radius: 10px;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.summary-value {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.summary-label {
+  font-size: 10px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Heat Map Legend */
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.legend-label {
+  font-size: 10px;
+  color: #999;
+}
+
+.legend-scale {
+  display: flex;
+  gap: 3px;
+}
+
+.legend-box {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.level-0 { background: #ebedf0; }
+.level-1 { background: #c6e48b; }
+.level-2 { background: #7bc96f; }
+.level-3 { background: #449f3d; }
+.level-4 { background: #196127; }
+
+/* Heat Map Container */
+.heatmap-container {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.heatmap-months {
+  display: flex;
+  margin-left: 30px;
+  margin-bottom: 5px;
+  font-size: 10px;
+  color: #999;
+}
+
+.heatmap-months span {
+  flex: 1;
+  min-width: 40px;
+}
+
+.heatmap-wrapper {
+  display: flex;
+}
+
+.heatmap-days {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-right: 5px;
+  font-size: 9px;
+  color: #999;
+  height: 80px;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
+  gap: 3px;
+}
+
+.heatmap-cell {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  background: #ebedf0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.3);
+  outline: 2px solid #667eea;
+  outline-offset: 1px;
+}
+
+.heatmap-cell.level-1 { background: #c6e48b; }
+.heatmap-cell.level-2 { background: #7bc96f; }
+.heatmap-cell.level-3 { background: #449f3d; }
+.heatmap-cell.level-4 { background: #196127; }
+
+/* Tooltip for heat map cells */
+.heatmap-cell[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 100;
+}
+
+/* Daily Breakdown */
+.daily-breakdown {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.daily-breakdown h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.breakdown-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.breakdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.breakdown-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  width: 55px;
+}
+
+.breakdown-bar-container {
+  flex: 1;
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.breakdown-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+.breakdown-bar.focus-bar {
+  background: linear-gradient(90deg, #ff6b6b, #ee5a5a);
+}
+
+.breakdown-bar.retrieve-bar {
+  background: linear-gradient(90deg, #ffd93d, #f9c846);
+}
+
+.breakdown-bar.rest-bar {
+  background: linear-gradient(90deg, #6bcb77, #4caf50);
+}
+
+.breakdown-value {
+  font-size: 11px;
+  font-weight: 600;
+  color: #333;
+  width: 50px;
+  text-align: right;
+}
+
+/* Clear Stats Button */
+.clear-stats-btn {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ff6b6b;
+  background: transparent;
+  color: #ff6b6b;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clear-stats-btn:hover {
+  background: #ff6b6b;
+  color: white;
+}
+
+/* ==================== */
 /* Information Tab Styles */
+/* ==================== */
+
 .info-section {
   max-height: 450px;
   overflow-y: auto;
@@ -329,8 +741,8 @@ body {
 .info-card {
   background: #fff;
   border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 15px;
+  padding: 14px;
+  margin-bottom: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border-left: 4px solid;
 }
@@ -351,13 +763,13 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .info-header .info-icon {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -365,8 +777,8 @@ body {
 }
 
 .info-header .info-icon svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .info-header .focus-icon {
@@ -385,44 +797,44 @@ body {
 }
 
 .info-header h3 {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   flex-grow: 1;
 }
 
 .time-badge {
   background: #f0f0f0;
-  padding: 4px 10px;
+  padding: 4px 8px;
   border-radius: 12px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   color: #666;
 }
 
 .info-card p {
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.6;
   color: #555;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .info-card ul {
-  margin-left: 18px;
-  margin-bottom: 10px;
+  margin-left: 16px;
+  margin-bottom: 8px;
 }
 
 .info-card li {
-  font-size: 12px;
+  font-size: 11px;
   color: #666;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   line-height: 1.5;
 }
 
 .tip-box {
   background: #f8f9fa;
   border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 12px;
+  padding: 8px 10px;
+  font-size: 11px;
   color: #555;
   border: 1px solid #e9ecef;
 }
@@ -434,22 +846,22 @@ body {
 .science-section {
   background: linear-gradient(135deg, #667eea15, #764ba215);
   border-radius: 12px;
-  padding: 16px;
-  margin-top: 10px;
+  padding: 14px;
+  margin-top: 8px;
 }
 
 .science-section h3 {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: #667eea;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .science-section p {
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.6;
   color: #555;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .science-section p:last-child {
@@ -457,21 +869,25 @@ body {
 }
 
 /* Scrollbar Styling */
-.info-section::-webkit-scrollbar {
+.info-section::-webkit-scrollbar,
+.stats-section::-webkit-scrollbar {
   width: 6px;
 }
 
-.info-section::-webkit-scrollbar-track {
+.info-section::-webkit-scrollbar-track,
+.stats-section::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 3px;
 }
 
-.info-section::-webkit-scrollbar-thumb {
+.info-section::-webkit-scrollbar-thumb,
+.stats-section::-webkit-scrollbar-thumb {
   background: #c1c1c1;
   border-radius: 3px;
 }
 
-.info-section::-webkit-scrollbar-thumb:hover {
+.info-section::-webkit-scrollbar-thumb:hover,
+.stats-section::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1;
 }
 
@@ -488,10 +904,14 @@ body {
 /* Responsive adjustments */
 @media (max-width: 380px) {
   .timer-display {
-    font-size: 48px;
+    font-size: 44px;
   }
 
   .phase-options {
     justify-content: center;
+  }
+
+  .summary-stats {
+    flex-wrap: wrap;
   }
 }

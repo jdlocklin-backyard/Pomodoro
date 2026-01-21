@@ -7,12 +7,21 @@ A Chromium-based browser extension implementing the Pomodoro Technique with addi
 - **Focus Time**: Configurable sessions of 10, 15, or 25 minutes for concentrated work
 - **Retrieve (Diffuse Mode)**: 3-5 minute periods for active recall and mental consolidation
 - **Restful Wakefulness**: 3-minute breaks for complete mental rest
+- **Automatic Phase Cycling**: Timer automatically progresses through Focus > Retrieve > Rest > Focus...
+- **Auto-Start**: Toggle to automatically start the next phase when one completes
+- **Heat Map Visualization**: GitHub-style heat map showing daily study activity
+- **Study Statistics**:
+  - Total minutes studied
+  - Total sessions completed
+  - Current day streak
+  - Phase breakdown (last 7 days)
 - **Session Tracking**: Keeps count of completed focus sessions
 - **Desktop Notifications**: Alerts when each phase completes
 - **Persistent Timer**: Timer continues even when popup is closed
-- **Two-Tab Interface**:
-  - Timer tab for controlling your Pomodoro sessions
-  - Information tab explaining the science behind each phase
+- **Three-Tab Interface**:
+  - **Timer**: Control your Pomodoro sessions with visual phase cycle indicator
+  - **Heat Map**: View your study activity over time
+  - **Learn More**: Understand the science behind each phase
 
 ## Installation
 
@@ -54,17 +63,30 @@ Follow the same steps as above for your specific browser.
 
 ### Timer Tab
 
-1. **Select a Phase**: Click on any phase button to set up your timer
+1. **Phase Cycle Indicator**: Visual display showing the current phase in the Focus > Retrieve > Rest cycle
+
+2. **Configure Durations**: Set your preferred times for each phase
    - **Focus Time**: 10, 15, or 25 minutes
    - **Retrieve**: 3, 4, or 5 minutes
    - **Restful Wakefulness**: 3 minutes
 
-2. **Control the Timer**:
+3. **Control the Timer**:
    - **Start**: Begin the countdown
    - **Pause**: Temporarily stop the timer
    - **Reset**: Reset to the beginning of the current phase
 
-3. **Automatic Phase Progression**: When a phase completes, the timer automatically advances to the next phase in the cycle: Focus > Retrieve > Rest > Focus...
+4. **Auto-Start Toggle**: Enable/disable automatic progression to the next phase
+
+5. **Today's Stats**: View minutes studied and sessions completed today
+
+### Heat Map Tab
+
+- **Summary Cards**: View total minutes, total sessions, and current day streak
+- **Heat Map Calendar**: GitHub-style visualization of your study activity over the past 16 weeks
+  - Darker green = more study time
+  - Hover over cells to see exact minutes for each day
+- **Phase Distribution**: Bar chart showing Focus, Retrieve, and Rest time distribution over the last 7 days
+- **Clear Data**: Option to reset all statistics
 
 ### Learn More Tab
 
@@ -90,6 +112,16 @@ Brief periods of mental rest (while staying awake) help:
 - Reduce mental fatigue
 - Prepare your brain for the next focus session
 
+## Automatic Phase Cycling
+
+The timer automatically cycles through the three phases:
+
+```
+Focus (25 min) → Retrieve (3-5 min) → Rest (3 min) → Focus...
+```
+
+With **Auto-Start** enabled (default), the timer will automatically begin the next phase after each phase completes, allowing for uninterrupted study sessions.
+
 ## File Structure
 
 ```
@@ -97,8 +129,8 @@ Pomodoro/
 ├── manifest.json      # Extension configuration
 ├── popup.html         # Main popup interface
 ├── popup.css          # Styling
-├── popup.js           # Timer logic and UI interactions
-├── background.js      # Service worker for notifications
+├── popup.js           # Timer logic, heat map, and UI interactions
+├── background.js      # Service worker for notifications and background tracking
 ├── icons/
 │   ├── icon16.png     # Toolbar icon (16x16)
 │   ├── icon48.png     # Extension management icon (48x48)
@@ -109,7 +141,7 @@ Pomodoro/
 ## Permissions
 
 The extension requests the following permissions:
-- **storage**: To save timer state and session count
+- **storage**: To save timer state, session count, and study statistics
 - **notifications**: To alert you when phases complete
 - **alarms**: To track timer progress when popup is closed
 
@@ -122,6 +154,10 @@ The extension requests the following permissions:
 ### Notifications Not Appearing
 - Go to Chrome Settings > Privacy and Security > Site Settings > Notifications
 - Ensure notifications are allowed for extensions
+
+### Heat Map Not Showing Data
+- Study data is recorded when phases complete
+- Make sure to complete full phases (not just pause/reset)
 
 ### Extension Not Loading
 - Verify all files are present in the extension folder

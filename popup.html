@@ -11,6 +11,7 @@
     <!-- Tab Navigation -->
     <div class="tab-nav">
       <button class="tab-btn active" data-tab="timer">Timer</button>
+      <button class="tab-btn" data-tab="stats">Heat Map</button>
       <button class="tab-btn" data-tab="info">Learn More</button>
     </div>
 
@@ -27,6 +28,30 @@
         <div id="timer-display" class="timer-display">25:00</div>
       </div>
 
+      <!-- Phase Cycle Indicator -->
+      <div class="phase-cycle-indicator">
+        <div class="cycle-step focus-step active" data-phase="focus">
+          <div class="cycle-dot"></div>
+          <span>Focus</span>
+        </div>
+        <div class="cycle-arrow">→</div>
+        <div class="cycle-step retrieve-step" data-phase="retrieve">
+          <div class="cycle-dot"></div>
+          <span>Retrieve</span>
+        </div>
+        <div class="cycle-arrow">→</div>
+        <div class="cycle-step rest-step" data-phase="rest">
+          <div class="cycle-dot"></div>
+          <span>Rest</span>
+        </div>
+        <div class="cycle-arrow">→</div>
+        <div class="cycle-repeat">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+          </svg>
+        </div>
+      </div>
+
       <!-- Progress Bar -->
       <div class="progress-container">
         <div id="progress-bar" class="progress-bar"></div>
@@ -39,9 +64,18 @@
         <button id="reset-btn" class="control-btn secondary">Reset</button>
       </div>
 
+      <!-- Auto-Start Toggle -->
+      <div class="auto-start-container">
+        <label class="toggle-switch">
+          <input type="checkbox" id="auto-start-toggle" checked>
+          <span class="toggle-slider"></span>
+        </label>
+        <span class="auto-start-label">Auto-start next phase</span>
+      </div>
+
       <!-- Phase Selection -->
       <div class="phase-selection">
-        <h3>Select Phase</h3>
+        <h3>Configure Durations</h3>
 
         <div class="phase-group">
           <h4 class="phase-group-title focus-title">Focus Time</h4>
@@ -69,10 +103,97 @@
         </div>
       </div>
 
-      <!-- Session Counter -->
-      <div class="session-counter">
-        <span>Sessions completed: </span>
-        <span id="session-count">0</span>
+      <!-- Today's Stats -->
+      <div class="today-stats">
+        <div class="stat-item">
+          <span class="stat-value" id="today-minutes">0</span>
+          <span class="stat-label">mins today</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" id="session-count">0</span>
+          <span class="stat-label">sessions</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats/Heat Map Tab -->
+    <div id="stats-tab" class="tab-content">
+      <div class="stats-section">
+        <h3 class="stats-title">Study Activity</h3>
+
+        <!-- Summary Stats -->
+        <div class="summary-stats">
+          <div class="summary-card">
+            <span class="summary-value" id="total-minutes">0</span>
+            <span class="summary-label">Total Minutes</span>
+          </div>
+          <div class="summary-card">
+            <span class="summary-value" id="total-sessions">0</span>
+            <span class="summary-label">Total Sessions</span>
+          </div>
+          <div class="summary-card">
+            <span class="summary-value" id="current-streak">0</span>
+            <span class="summary-label">Day Streak</span>
+          </div>
+        </div>
+
+        <!-- Heat Map Legend -->
+        <div class="heatmap-legend">
+          <span class="legend-label">Less</span>
+          <div class="legend-scale">
+            <div class="legend-box level-0"></div>
+            <div class="legend-box level-1"></div>
+            <div class="legend-box level-2"></div>
+            <div class="legend-box level-3"></div>
+            <div class="legend-box level-4"></div>
+          </div>
+          <span class="legend-label">More</span>
+        </div>
+
+        <!-- Heat Map Calendar -->
+        <div class="heatmap-container">
+          <div class="heatmap-months" id="heatmap-months"></div>
+          <div class="heatmap-wrapper">
+            <div class="heatmap-days">
+              <span>Mon</span>
+              <span>Wed</span>
+              <span>Fri</span>
+            </div>
+            <div class="heatmap-grid" id="heatmap-grid"></div>
+          </div>
+        </div>
+
+        <!-- Daily Breakdown -->
+        <div class="daily-breakdown">
+          <h4>Phase Distribution (Last 7 Days)</h4>
+          <div class="breakdown-bars">
+            <div class="breakdown-item">
+              <span class="breakdown-label">Focus</span>
+              <div class="breakdown-bar-container">
+                <div class="breakdown-bar focus-bar" id="focus-bar"></div>
+              </div>
+              <span class="breakdown-value" id="focus-total">0 min</span>
+            </div>
+            <div class="breakdown-item">
+              <span class="breakdown-label">Retrieve</span>
+              <div class="breakdown-bar-container">
+                <div class="breakdown-bar retrieve-bar" id="retrieve-bar"></div>
+              </div>
+              <span class="breakdown-value" id="retrieve-total">0 min</span>
+            </div>
+            <div class="breakdown-item">
+              <span class="breakdown-label">Rest</span>
+              <div class="breakdown-bar-container">
+                <div class="breakdown-bar rest-bar" id="rest-bar"></div>
+              </div>
+              <span class="breakdown-value" id="rest-total">0 min</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clear Data Button -->
+        <button id="clear-stats-btn" class="clear-stats-btn">Clear All Data</button>
       </div>
     </div>
 

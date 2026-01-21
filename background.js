@@ -14,7 +14,7 @@ const phaseMessages = {
   },
   rest: {
     title: 'Rest Complete!',
-    message: 'Refreshed and ready! Start your next focus session.',
+    message: 'Refreshed and ready! Starting your next focus session.',
     icon: 'icons/icon128.png'
   }
 };
@@ -58,15 +58,43 @@ function handlePhaseComplete(message) {
     priority: 2,
     requireInteraction: true
   });
-
-  // Play sound notification (using system notification sound)
-  // Note: For custom sounds, you would need to use audio in popup or offscreen document
 }
 
 // Get current state
 function getState(sendResponse) {
   chrome.storage.local.get(['pomodoroState'], (result) => {
     sendResponse(result.pomodoroState || null);
+  });
+}
+
+// Get today's date string
+function getTodayString() {
+  const today = new Date();
+  return today.toISOString().split('T')[0];
+}
+
+// Record study time (for background tracking)
+function recordStudyTime(phase, minutes) {
+  chrome.storage.local.get(['studyStats'], (result) => {
+    const studyStats = result.studyStats || {
+      dailyMinutes: {},
+      totalSessions: 0
+    };
+
+    const today = getTodayString();
+
+    if (!studyStats.dailyMinutes[today]) {
+      studyStats.dailyMinutes[today] = { total: 0, focus: 0, retrieve: 0, rest: 0 };
+    }
+
+    studyStats.dailyMinutes[today][phase] += minutes;
+    studyStats.dailyMinutes[today].total += minutes;
+
+    if (phase === 'focus') {
+      studyStats.totalSessions++;
+    }
+
+    chrome.storage.local.set({ studyStats });
   });
 }
 
@@ -79,6 +107,9 @@ chrome.alarms.onAlarm.addListener((alarm) => {
         const state = result.pomodoroState;
         const phaseInfo = phaseMessages[state.currentPhase];
 
+        // Record the completed phase time
+        recordStudyTime(state.currentPhase, state.selectedTimes[state.currentPhase]);
+
         // Show notification
         chrome.notifications.create({
           type: 'basic',
@@ -89,7 +120,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
           requireInteraction: true
         });
 
-        // Update state
+        // Advance to next phase
         advancePhase(state);
       }
     });
@@ -115,6 +146,27 @@ function advancePhase(currentState) {
   };
 
   chrome.storage.local.set({ pomodoroState: newState });
+
+  // Auto-start next phase if enabled
+  if (currentState.autoStart !== false) {
+    setTimeout(() => {
+      chrome.storage.local.get(['pomodoroState'], (result) => {
+        if (result.pomodoroState && !result.pomodoroState.isRunning) {
+          const updatedState = {
+            ...result.pomodoroState,
+            isRunning: true,
+            lastUpdate: Date.now()
+          };
+          chrome.storage.local.set({ pomodoroState: updatedState });
+
+          // Create alarm for the new phase
+          chrome.alarms.create('pomodoroTimer', {
+            delayInMinutes: updatedState.timeRemaining / 60
+          });
+        }
+      });
+    }, 1000);
+  }
 }
 
 // Handle notification click - open popup
@@ -139,10 +191,19 @@ chrome.runtime.onInstalled.addListener((details) => {
       totalTime: 25 * 60,
       isRunning: false,
       sessionCount: 0,
+      autoStart: true,
       lastUpdate: Date.now()
     };
 
-    chrome.storage.local.set({ pomodoroState: defaultState });
+    const defaultStats = {
+      dailyMinutes: {},
+      totalSessions: 0
+    };
+
+    chrome.storage.local.set({
+      pomodoroState: defaultState,
+      studyStats: defaultStats
+    });
 
     // Show welcome notification
     chrome.notifications.create({
